@@ -97,6 +97,37 @@ check digits) through each model and reports leaks, tool errors, refund proposal
 replies that could be restored, invented or internal tokens, and how Russian name tokens
 were written. Full results, including every restored reply, go to `eval-results/`.
 
+### Results with Claude Haiku, Sonnet and Opus
+
+These replies were collected without LiteLLM: `scripts/agent-prompts.ts` writes, for each
+fixture, exactly what the model sees when it writes the reply (system prompt, masked
+ticket, its tool calls and their tokenised results). Each prompt was given to a
+context-free Claude agent, and `scripts/score-replies.ts` restores the replies saved in
+`eval-results/claude-agents-replies.json`:
+
+| model | replies | restored OK | invented / internal tokens | tokens copied exactly | with case marker | glued | mangled |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Haiku | 9 | 9/9 | 0 | 33 | 2 | 0 | 0 |
+| Sonnet | 9 | 9/9 | 0 | 38 | 2 | 0 | 0 |
+| Opus | 9 | 9/9 | 0 | 38 | 2 | 0 | 0 |
+
+What the replies show:
+
+- **Tokens survive.** No invented, internal, mangled or glued tokens in 27 replies.
+- **Models avoid the hard case.** Almost every Russian reply puts the name only in the
+  greeting, in the nominative ("Здравствуйте, Давид!"), where no declension is needed.
+- **Forced into it, markers mostly work.** Fixture 7 asks for a document "на имя ...",
+  which needs the genitive. 5 of 6 replies used `<CUSTOMER_FULL_NAME:gen>` → "Давида Коэна".
+  One Haiku reply left the token bare: "на имя Давид Коэн". The restorer cannot see that.
+- **Markers can be wrong.** One Haiku reply wrote `Здравствуйте, <CUSTOMER_FULL_NAME:dat>!`.
+  The name (Моше Леви) does not decline, so the text came out right by luck.
+
+So the risk is on the input side (masking and the leak checker), not on the way back.
+
+Limits of this run: Claude models only; one or two runs per ticket; agents, not the raw API;
+the tool calls were given, not made by the model. Run `npm run eval` with your own models
+behind LiteLLM for numbers that matter to you.
+
 ## License
 
 MIT
