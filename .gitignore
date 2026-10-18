@@ -1,3 +1,5 @@
 node_modules/
-eval-results/
+eval-results/*
+!eval-results/claude-agents-replies.json
+!eval-results/agent-prompts.json
 .env

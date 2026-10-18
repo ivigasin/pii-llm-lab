@@ -1,0 +1,137 @@
+[
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 1,
+  "reply": "Здравствуйте! Мы получили ваше обращение о двойном списании <AMOUNT_1> от <DATE_1> с карты ...<CARD_1>. В этот день действительно найдено два одинаковых списания в пользу SuperPharm. Запрос на возврат одного из них передан на проверку сотруднику, решение о возврате пока не принято. Мы сообщим вам о результате по телефону <PHONE_1>. Спасибо за терпение."
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 2,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME:dat>!\n\nСпасибо за обращение. Мы проверили платежи в Rami Levy от <DATE_1> по карте <CARD_1>. Действительно, найдено два одинаковых списания на сумму <AMOUNT_1>. Запрос на возврат лишнего платежа передан на проверку, решение будет принято после неё. Ответ мы отправим на <EMAIL_1>."
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 3,
+  "reply": "Здравствуйте! Спасибо, что написали. Мы нашли два списания на сумму <AMOUNT_1> за билет El Al с вашей карты <CARD_1> от <DATE_1>. Похоже, одно из них является дубликатом. Мы отправили запрос на возврат этого списания, и сейчас он рассматривается нашими специалистами. Мы сообщим вам о решении."
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 4,
+  "reply": "שלום <CUSTOMER_FULL_NAME>,\n\nקיבלנו את פנייתך בנוגע לחיוב הכפול ב-<AMOUNT_1> מתאריך <DATE_1> בכרטיס שמסתיים ב-<CARD_1>. בבדיקה אותרו שני חיובים זהים בתאריך ובסכום הזה. בקשתך להחזר של חיוב אחד הועברה לבדיקה ולאישור של הצוות שלנו. ההחזר טרם אושר, ונעדכן אותך בהחלטה בהקדם.\n\nבברכה,\nצוות התמיכה"
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 5,
+  "reply": "Hi <CUSTOMER_FIRST_NAME>,\n\nThank you for contacting us. We found two charges of <AMOUNT_1> on <DATE_1> to El Al on your card ending in <CARD_1>. We have submitted a request to refund the duplicate charge. It is now being reviewed by our team, and we will let you know the outcome once the review is complete.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 6,
+  "reply": "Здравствуйте! Мы нашли два списания на сумму <AMOUNT_1> от <DATE_1> по карте <CARD_1>. Мы передали запрос на возврат одного из них на проверку. Решение примет сотрудник, и мы сообщим вам о результате."
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 8,
+  "reply": "Hello <CUSTOMER_FULL_NAME>,\n\nThank you for reporting this. We found two charges of <AMOUNT_1> on <DATE_1> to your card <CARD_1> from SuperPharm, which looks like a duplicate. We have submitted a refund request for one of them. It is now being reviewed by our team, and we will contact you once it has been processed.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 1,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nМы проверили ваше обращение. <DATE_1> по карте ...<CARD_1> действительно есть два одинаковых списания на сумму <AMOUNT_1> в магазине SuperPharm. Мы передали запрос на возврат одного из них на рассмотрение сотруднику. Пока решение не принято, мы не можем гарантировать возврат.\n\nКогда решение будет готово, мы свяжемся с вами по номеру <PHONE_1>.\n\nСпасибо за обращение."
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 2,
+  "reply": "Добрый день, <CUSTOMER_FULL_NAME>.\n\nМы нашли два одинаковых платежа по <AMOUNT_1> в Rami Levy от <DATE_1> по карте <CARD_1>. Мы передали запрос на возврат второго платежа на рассмотрение. Окончательное решение примет сотрудник. Пока запрос не рассмотрен, мы не можем обещать, что возврат будет сделан.\n\nКогда решение будет принято, мы отправим ответ на <EMAIL_1>."
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 3,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nМы проверили операцию. <DATE_1> по карте <CARD_1> действительно есть два одинаковых списания по <AMOUNT_1> у мерчанта El Al.\n\nМы отправили запрос на возврат второго списания. Его рассматривает сотрудник, поэтому пока мы не можем гарантировать результат. Как только решение будет принято, мы сообщим вам.\n\nЕсли понадобятся дополнительные данные, мы напишем вам в этом обращении."
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 4,
+  "reply": "שלום <CUSTOMER_FULL_NAME>,\n\nתודה על פנייתך. בדקנו את החשבון ואכן מצאנו שני חיובים זהים על סך <AMOUNT_1> בתאריך <DATE_1> בכרטיס שמסתיים ב-<CARD_1>, אצל SuperPharm.\n\nהגשנו בקשה להחזר של אחד החיובים, והיא נמצאת כעת בבדיקה ובהמתנה לאישור של גורם מוסמך. איננו יכולים להבטיח מראש את תוצאת הבדיקה, אך נעדכן אותך ברגע שתתקבל החלטה.\n\nבברכה,\nצוות התמיכה"
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 5,
+  "reply": "Hi <CUSTOMER_FULL_NAME>,\n\nThank you for contacting us. I found two identical charges of <AMOUNT_1> from El Al on <DATE_1> on your card ending in <CARD_1>. I have submitted a refund request for the duplicate charge, and it is now being reviewed by our team. I can't promise the outcome yet, but we will let you know as soon as there is a decision.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 6,
+  "reply": "Здравствуйте, <CUSTOMER_FIRST_NAME>!\n\nСпасибо за обращение. Мы проверили операцию: <DATE_1> по карте <CARD_1> в магазине Rami Levy действительно есть два одинаковых списания на сумму <AMOUNT_1>.\n\nМы отправили запрос на возврат одного из этих списаний. Его рассматривает сотрудник. Пока решение не принято, мы не можем гарантировать возврат. Как только решение будет принято, мы сообщим вам.\n\nЕсли понадобятся дополнительные данные, мы свяжемся с вами.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 8,
+  "reply": "Hello <CUSTOMER_FIRST_NAME>,\n\nThank you for your message. We found two identical charges of <AMOUNT_1> from SuperPharm on <DATE_1> on card <CARD_1>, as you and your wife described.\n\nWe have submitted a request to refund one of them. A member of our team is now reviewing it. We will update you once the review is complete.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 1,
+  "reply": "Здравствуйте, <CUSTOMER_FIRST_NAME>!\n\nСпасибо за обращение. Мы проверили операции по вашей карте ...<CARD_1> за <DATE_1>. Там действительно два одинаковых списания по <AMOUNT_1> в SuperPharm.\n\nМы оформили заявку на возврат одного из этих списаний. Сейчас её проверяет наш специалист. Когда проверка закончится, мы сообщим вам результат по номеру <PHONE_1>.\n\nЕсли у вас есть вопросы, напишите нам.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 2,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nСпасибо, что написали нам. Мы проверили операции по карте <CARD_1> за <DATE_1> и нашли два одинаковых платежа по <AMOUNT_1> в Rami Levy.\n\nМы отправили запрос на возврат лишнего платежа. Сейчас его рассматривает наш сотрудник. Когда будет решение, мы сообщим вам на <EMAIL_1>.\n\nЕсли у вас есть ещё вопросы, просто ответьте на это письмо.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 3,
+  "reply": "Здравствуйте, <CUSTOMER_FIRST_NAME>!\n\nСпасибо за обращение. Мы проверили операции по вашей карте <CARD_1> и подтверждаем, что <DATE_1> прошли два одинаковых списания на сумму <AMOUNT_1> в пользу El Al.\n\nМы оформили запрос на возврат второго (повторного) списания. Сейчас его рассматривает наш специалист. Как только решение будет принято, мы сразу сообщим вам результат.\n\nЕсли у вас есть дополнительная информация, например подтверждение от El Al, что билет был оформлен только один раз, пришлите её в ответ на это письмо. Это поможет быстрее рассмотреть запрос.\n\nС уважением,\nСлужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 4,
+  "reply": "שלום <CUSTOMER_FULL_NAME>,\n\nתודה על פנייתך. בדקנו את החשבון ומצאנו שני חיובים זהים של <AMOUNT_1> ב-SuperPharm מתאריך <DATE_1>, בכרטיס שמסתיים ב-<CARD_1>.\n\nהגשנו בקשה להחזר של אחד החיובים. הבקשה נמצאת כעת בבדיקה של צוות מוסמך. נעדכן אותך כשתתקבל החלטה.\n\nאם יש לך שאלות נוספות, נשמח לעזור.\n\nבברכה,\nצוות התמיכה"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 5,
+  "reply": "Hi <CUSTOMER_FIRST_NAME>,\n\nThanks for contacting us. We checked your card ending in <CARD_1> and found two charges of <AMOUNT_1> from El Al on <DATE_1>. One of them looks like a duplicate.\n\nWe've sent a refund request for the duplicate charge to our team. A team member needs to approve it, so we can't confirm the refund yet. We'll let you know once a decision is made.\n\nIf you have a receipt or booking confirmation from El Al that shows you bought only one ticket, please reply with it. It can help the review.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 6,
+  "reply": "Здравствуйте, <CUSTOMER_FIRST_NAME>!\n\nСпасибо, что написали. Мы проверили операции по карте <CARD_1> и нашли два одинаковых списания на <AMOUNT_1> от <DATE_1> в Rami Levy.\n\nМы отправили запрос на возврат одного из этих списаний как повторного. Сейчас его проверяет наш сотрудник. Мы сообщим вам, когда будет решение.\n\nЕсли появятся вопросы, просто ответьте на это письмо.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 8,
+  "reply": "Hello <CUSTOMER_FIRST_NAME>,\n\nThank you for contacting us. We checked the charges on card <CARD_1> and found two identical charges of <AMOUNT_1> at SuperPharm on <DATE_1>.\n\nWe have sent a refund request for one of these charges to our team. It is now being reviewed, and we will tell you the outcome once the review is finished. Please note that the refund is not approved yet.\n\nIf you have any other questions, please reply to this message.\n\nBest regards,\nCustomer Support"
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте!\n\nМы нашли два списания на сумму <AMOUNT_1> с карты <CARD_1> за <DATE_1>. Запрос на возврат одного из них передан на проверку, решение по нему будет принято после одобрения. Справку о возврате на имя <CUSTOMER_FULL_NAME> мы сможем выдать после оформления возврата."
+ },
+ {
+  "model": "claude-haiku (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте! Мы получили ваше обращение. В выписке найдены два списания суммой <AMOUNT_1> от <DATE_1> с карты <CARD_1> в SuperPharm. Запрос на возврат одного из них передан на рассмотрение сотрудникам, и решение будет принято после проверки. О результате мы сообщим вам отдельно. Вопрос о справке о возврате на имя <CUSTOMER_FULL_NAME:gen> рассмотрим в рамках этой же проверки."
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nМы нашли два одинаковых списания на сумму <AMOUNT_1> от <DATE_1> по карте <CARD_1> (SuperPharm). Заявка на возврат одного из них передана на рассмотрение сотрудника. Пока решение не принято, мы не можем гарантировать возврат, но сообщим вам о результате.\n\nСправку о возврате на имя <CUSTOMER_FULL_NAME:gen> мы сможем подготовить только после того, как возврат будет одобрен и проведён."
+ },
+ {
+  "model": "claude-sonnet (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nМы нашли два одинаковых списания на сумму <AMOUNT_1> от <DATE_1> по карте <CARD_1> (SuperPharm). Мы передали заявку на возврат одного из этих списаний на проверку сотруднику. Пока решение не принято, мы не можем гарантировать возврат.\n\nО результате проверки мы сообщим вам дополнительно. Справку о возврате на имя <CUSTOMER_FULL_NAME:gen> мы сможем подготовить после того, как решение будет принято.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте, <CUSTOMER_FULL_NAME>!\n\nСпасибо, что написали. Мы проверили операции по карте <CARD_1> за <DATE_1> и нашли два одинаковых списания на сумму <AMOUNT_1> в SuperPharm.\n\nМы оформили запрос на возврат одного из этих списаний. Сейчас его проверяет сотрудник. Как только он примет решение, мы сообщим вам результат.\n\nСправку о возврате на имя <CUSTOMER_FULL_NAME:gen> мы сможем подготовить, если возврат одобрят. Тогда пришлём её вам вместе с ответом.\n\nЕсли у вас есть вопросы, напишите нам.\n\nС уважением,\nслужба поддержки"
+ },
+ {
+  "model": "claude-opus (agent)",
+  "ticket": 7,
+  "reply": "Здравствуйте, <CUSTOMER_FIRST_NAME>!\n\nСпасибо, что написали нам. Мы проверили операции по карте <CARD_1> за <DATE_1> и нашли два одинаковых списания по <AMOUNT_1> в пользу SuperPharm.\n\nМы оформили запрос на возврат одного из этих списаний как повторного. Сейчас его рассматривает наш специалист. Когда решение будет принято, мы сразу сообщим вам результат.\n\nВашу просьбу о справке на имя <CUSTOMER_FULL_NAME:gen> мы тоже передали. Если возврат одобрят, справку подготовят на это имя.\n\nЕсли у вас есть ещё вопросы, просто ответьте на это письмо.\n\nС уважением,\nслужба поддержки"
+ }
+]

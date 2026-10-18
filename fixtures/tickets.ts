@@ -108,6 +108,14 @@ export const fixtures: Fixture[] = [
     },
   },
   {
+    name: 'ru, reply needs a non-nominative case (справка на имя)',
+    ticket: {
+      customerId: 'c_david',
+      year: 2026,
+      text: 'Здравствуйте, я Давид Коэн. 3 сентября с карты 4417 дважды списали 1 250 ₪. Верните одну сумму и пришлите, пожалуйста, справку о возврате на имя Давида Коэна.',
+    },
+  },
+  {
     name: 'mixed, with a third person (known gap)',
     ticket: {
       customerId: 'c_david',
