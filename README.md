@@ -10,7 +10,7 @@ mixed-language tickets, a mutation check, and an eval for real models behind Lit
 
 ```bash
 npm install
-npm test                 # 75 tests, including 1,000 generated tickets
+npm test                 # 76 tests, including 1,000 generated tickets
 bash scripts/mutants.sh  # 7 deliberate privacy bugs; every one must be caught
 npm run eval             # offline, with a scripted model
 LITELLM_BASE_URL=http://localhost:4000 LITELLM_API_KEY=sk-... \
@@ -83,6 +83,9 @@ test passed with the Hebrew-prefix bug in place until the checker learned Hebrew
 
 - **Other people's names are not masked.** "My wife Sarah Mizrahi..." reaches the model.
   That needs a named-entity model with its own error rate. The eval counts it as a leak.
+- **Over-masking.** A merchant whose name contains the customer's surname is masked too:
+  Моше Леви shopping at רמי לוי (Rami Levy) becomes `רמי <CUSTOMER_LAST_NAME>`, and the model
+  loses the merchant. Exact matching from the customer record trades this for not missing the name.
 - A card ending written without a card cue ("списали с 4417") is not masked.
 - Free text can identify a person without any listed field: a small town, a rare story.
 - Russian declension covers common first-name and surname patterns, not all of them
