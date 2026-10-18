@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { findLeaks, forbiddenStrings } from '../src/leaks.js';
 import { isValidIsraeliId, mask, parseAmount } from '../src/mask.js';
 import { Vault } from '../src/vault.js';
+import { customers } from '../fixtures/tickets.js';
 import { david, ticketRu } from './helpers.js';
 
 const run = (text: string) => {
@@ -27,6 +28,17 @@ describe('the customer record finds what patterns cannot', () => {
     expect(run('Письмо для Коэна. Передайте Давиду. С Давидом.').masked).toBe(
       'Письмо для <CUSTOMER_LAST_NAME>. Передайте <CUSTOMER_FIRST_NAME>. С <CUSTOMER_FIRST_NAME>.',
     );
+  });
+
+  it('declines a feminine first name in -ина as a name, not as a surname (Ирины, not Ириной only)', () => {
+    // Found by review: Ирина was declined like the surname Ильина, so Ирины and Ирине leaked,
+    // and the leak checker, built from the same forms, did not see it. Expected strings are written by hand.
+    const irina = customers.find((c) => c.id === 'c_irina')!;
+    const vault = new Vault();
+    const text = 'Справку на имя Ирины Фельдман, передайте Ирине, с Ириной';
+    const masked = mask(text, irina, vault, 2026);
+    expect(masked).toBe('Справку на имя <CUSTOMER_FULL_NAME>, передайте <CUSTOMER_FIRST_NAME>, с <CUSTOMER_FIRST_NAME>');
+    expect(findLeaks(text, forbiddenStrings(irina, vault))).toEqual(expect.arrayContaining(['Ирины', 'Ирине']));
   });
 
   it('keeps Hebrew prefixes outside the token', () => {

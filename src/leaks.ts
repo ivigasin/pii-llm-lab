@@ -10,9 +10,9 @@ import type { Vault } from './vault.js';
 export function forbiddenStrings(customer: Customer, vault: Vault): string[] {
   const out = new Set<string>();
   for (const lang of ['ru', 'he', 'en'] as Lang[]) {
-    for (const part of [customer.firstName[lang], customer.lastName[lang]]) {
-      if (!part) continue;
-      for (const f of lang === 'ru' ? allForms(part, customer.gender) : [part]) out.add(f);
+    for (const [name, part] of [[customer.firstName[lang], 'first'], [customer.lastName[lang], 'last']] as const) {
+      if (!name) continue;
+      for (const f of lang === 'ru' ? allForms(name, customer.gender, part) : [name]) out.add(f);
     }
   }
   out.add(customer.nationalId);

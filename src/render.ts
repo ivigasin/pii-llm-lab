@@ -1,5 +1,5 @@
 /** Render a real value in the language of the surrounding reply. */
-import { inflect } from './ru-names.js';
+import { inflect, type NamePart } from './ru-names.js';
 import type { Case, Customer, Kind, Lang } from './types.js';
 
 const RU_MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -21,9 +21,9 @@ function pick(names: Partial<Record<Lang, string>>, lang: Lang): string {
 }
 
 export function renderName(customer: Customer, kind: Kind, lang: Lang, grammaticalCase: Case = 'nom'): string {
-  const decline = (w: string) => (lang === 'ru' ? inflect(w, grammaticalCase, customer.gender) : w);
-  const first = decline(pick(customer.firstName, lang));
-  const last = decline(pick(customer.lastName, lang));
+  const decline = (w: string, part: NamePart) => (lang === 'ru' ? inflect(w, grammaticalCase, customer.gender, part) : w);
+  const first = decline(pick(customer.firstName, lang), 'first');
+  const last = decline(pick(customer.lastName, lang), 'last');
   if (kind === 'CUSTOMER_FIRST_NAME') return first;
   if (kind === 'CUSTOMER_LAST_NAME') return last;
   return `${first} ${last}`;

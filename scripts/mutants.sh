@@ -26,7 +26,9 @@ run() {
 run "Hebrew prefixes not handled (לדוד leaks)" src/mask.ts \
   "const HE_PREFIX = '[ושהבכלמ]{0,2}';" "const HE_PREFIX = '';"
 run "Russian case forms not generated (Коэна leaks)" src/mask.ts \
-  "return lang === 'ru' ? allForms(name, customer.gender) : [name];" "return [name];"
+  "return lang === 'ru' ? allForms(name, customer.gender, part === 'firstName' ? 'first' : 'last') : [name];" "return [name];"
+run "first names declined as surnames (Ирины leaks)" src/ru-names.ts \
+  "if (part === 'last' && gender === 'f' && /(ов|ев|ин|ын)а$/i.test(word)) {" "if (gender === 'f' && /(ов|ев|ин|ын)а$/i.test(word)) {"
 run "names matched before e-mails (address split)" src/mask.ts \
   "export const RULES: Rule[] = [emails, customerKnownNumbers, customerNames," \
   "export const RULES: Rule[] = [customerNames, emails, customerKnownNumbers,"

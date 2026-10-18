@@ -3,24 +3,29 @@
  * Not a morphology engine: it covers the common patterns and leaves the rest unchanged.
  *
  *   Давид, Коэн, Игорь, Андрей      masculine, decline (Давиду, Коэну, Игорю, Андрею)
- *   Иванов, Ильин                   masculine -ов/-ин: instrumental -ым (Ивановым)
+ *   Иванов, Ильин                   masculine SURNAMES in -ов/-ин: instrumental -ым (Ивановым);
+ *                                   first names like Мартин take -ом (Мартином)
  *   Анна, Мария, Маша, Миша         -а/-я: decline for any gender
- *   Иванова, Ильина                 feminine -ова/-ина: adjectival endings (Ивановой)
+ *   Иванова, Ильина                 feminine SURNAMES in -ова/-ина: adjectival endings (Ивановой);
+ *                                   first names like Ирина, Марина decline as -а (Ирины, Ирине)
  *   Моше, Шломо, Ави, Коэн (f)      indeclinable: vowel endings other than -а/-я,
  *                                   and feminine names ending in a consonant
  */
 import type { Case, Gender } from './types.js';
 
+/** First names and surnames decline differently (Ирина -> Ирины, Ильина -> Ильиной). */
+export type NamePart = 'first' | 'last';
+
 const CASES: Case[] = ['nom', 'gen', 'dat', 'acc', 'ins', 'prep'];
 const VOWEL_INDECLINABLE = /[оеёиуыэю]$/i;
 const SIBILANT_OR_VELAR = /[гкхжшчщ]$/i;
 
-export function inflect(word: string, grammaticalCase: Case, gender: Gender): string {
+export function inflect(word: string, grammaticalCase: Case, gender: Gender, part: NamePart): string {
   if (grammaticalCase === 'nom' || !/[а-яё]$/i.test(word)) return word;
   if (VOWEL_INDECLINABLE.test(word)) return word;
 
-  // Feminine -ова/-ева/-ина/-ына surnames decline like adjectives.
-  if (gender === 'f' && /(ов|ев|ин|ын)а$/i.test(word)) {
+  // Feminine -ова/-ева/-ина/-ына SURNAMES decline like adjectives. First names (Ирина) do not.
+  if (part === 'last' && gender === 'f' && /(ов|ев|ин|ын)а$/i.test(word)) {
     const stem = word.slice(0, -1);
     return grammaticalCase === 'acc' ? `${stem}у` : `${stem}ой`;
   }
@@ -45,13 +50,13 @@ export function inflect(word: string, grammaticalCase: Case, gender: Gender): st
     const stem = word.slice(0, -1);
     return { gen: `${stem}я`, dat: `${stem}ю`, acc: `${stem}я`, ins: `${stem}ем`, prep: `${stem}е` }[grammaticalCase];
   }
-  const ins = /(ов|ев|ин|ын)$/i.test(word) ? `${word}ым` : `${word}ом`;
+  const ins = part === 'last' && /(ов|ев|ин|ын)$/i.test(word) ? `${word}ым` : `${word}ом`;
   return { gen: `${word}а`, dat: `${word}у`, acc: `${word}а`, ins, prep: `${word}е` }[grammaticalCase];
 }
 
 /** Every case form of a word, for finding the name in text the customer wrote. */
-export function allForms(word: string, gender: Gender): string[] {
-  return [...new Set(CASES.map((c) => inflect(word, c, gender)))];
+export function allForms(word: string, gender: Gender, part: NamePart): string[] {
+  return [...new Set(CASES.map((c) => inflect(word, c, gender, part)))];
 }
 
 /**

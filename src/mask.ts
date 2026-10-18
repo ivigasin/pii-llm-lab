@@ -3,8 +3,10 @@
  *
  * Two sources, in this order:
  * 1. The customer record. In support we know who wrote the ticket, so their name
- *    (in every script and Russian case form, with Hebrew prefixes), ID number, cards,
- *    phones and e-mails are found by exact match, not guessed.
+ *    (in every script and Russian case form, with Hebrew prefixes), ID number and
+ *    e-mails are found by exact match, not guessed. Cards and phones are NOT matched
+ *    from the record: a bare 4-digit card ending would also hit years and amounts,
+ *    so they are left to the patterns below (see test/known-gaps.test.ts).
  * 2. Pattern detectors for what the record cannot list: dates, amounts, any valid
  *    Israeli ID number, phones, e-mails, card endings written after a card keyword.
  *
@@ -84,7 +86,7 @@ function groupSpan(m: RegExpExecArray, g: number, kind: Kind, value: string): Sp
 function nameForms(customer: Customer, part: 'firstName' | 'lastName', lang: Lang): string[] {
   const name = customer[part][lang];
   if (!name) return [];
-  return lang === 'ru' ? allForms(name, customer.gender) : [name];
+  return lang === 'ru' ? allForms(name, customer.gender, part === 'firstName' ? 'first' : 'last') : [name];
 }
 
 function nameRe(lang: Lang, alternatives: string[]): RegExp {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { restore } from '../src/restore.js';
-import { inflect } from '../src/ru-names.js';
+import { inflect, type NamePart } from '../src/ru-names.js';
 import type { Case, Gender } from '../src/types.js';
 import { Vault } from '../src/vault.js';
 import { david } from './helpers.js';
@@ -15,21 +15,26 @@ const vaultWith = () => {
 };
 
 describe('Russian name declension', () => {
-  const table: [string, Gender, Partial<Record<Case, string>>][] = [
-    ['Давид', 'm', { gen: 'Давида', dat: 'Давиду', ins: 'Давидом', prep: 'Давиде' }],
-    ['Игорь', 'm', { gen: 'Игоря', dat: 'Игорю', ins: 'Игорем' }],
-    ['Андрей', 'm', { dat: 'Андрею', ins: 'Андреем' }],
-    ['Иванов', 'm', { dat: 'Иванову', ins: 'Ивановым' }],
-    ['Моше', 'm', { gen: 'Моше', dat: 'Моше' }], // indeclinable
-    ['Анна', 'f', { gen: 'Анны', dat: 'Анне', acc: 'Анну', ins: 'Анной' }],
-    ['Мария', 'f', { gen: 'Марии', dat: 'Марии', acc: 'Марию' }],
-    ['Иванова', 'f', { gen: 'Ивановой', acc: 'Иванову' }],
-    ['Фельдман', 'f', { dat: 'Фельдман' }], // feminine consonant ending: indeclinable
-    ['Миша', 'm', { gen: 'Миши', dat: 'Мише' }],
+  const table: [string, Gender, NamePart, Partial<Record<Case, string>>][] = [
+    ['Давид', 'm', 'first', { gen: 'Давида', dat: 'Давиду', ins: 'Давидом', prep: 'Давиде' }],
+    ['Коэн', 'm', 'last', { gen: 'Коэна', dat: 'Коэну', ins: 'Коэном' }],
+    ['Игорь', 'm', 'first', { gen: 'Игоря', dat: 'Игорю', ins: 'Игорем' }],
+    ['Андрей', 'm', 'first', { dat: 'Андрею', ins: 'Андреем' }],
+    ['Иванов', 'm', 'last', { dat: 'Иванову', ins: 'Ивановым' }],
+    ['Мартин', 'm', 'first', { dat: 'Мартину', ins: 'Мартином' }], // a first name in -ин is not a surname
+    ['Моше', 'm', 'first', { gen: 'Моше', dat: 'Моше' }], // indeclinable
+    ['Анна', 'f', 'first', { gen: 'Анны', dat: 'Анне', acc: 'Анну', ins: 'Анной' }],
+    ['Мария', 'f', 'first', { gen: 'Марии', dat: 'Марии', acc: 'Марию' }],
+    ['Ирина', 'f', 'first', { gen: 'Ирины', dat: 'Ирине', acc: 'Ирину', ins: 'Ириной', prep: 'Ирине' }], // not like Ильина
+    ['Марина', 'f', 'first', { gen: 'Марины', dat: 'Марине' }],
+    ['Ильина', 'f', 'last', { gen: 'Ильиной', dat: 'Ильиной', acc: 'Ильину' }],
+    ['Иванова', 'f', 'last', { gen: 'Ивановой', acc: 'Иванову' }],
+    ['Фельдман', 'f', 'last', { dat: 'Фельдман' }], // feminine consonant ending: indeclinable
+    ['Миша', 'm', 'first', { gen: 'Миши', dat: 'Мише' }],
   ];
-  for (const [word, gender, forms] of table) {
+  for (const [word, gender, part, forms] of table) {
     for (const [c, expected] of Object.entries(forms)) {
-      it(`${word} ${c} -> ${expected}`, () => expect(inflect(word, c as Case, gender)).toBe(expected));
+      it(`${word} ${c} -> ${expected}`, () => expect(inflect(word, c as Case, gender, part)).toBe(expected));
     }
   }
 });

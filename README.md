@@ -10,8 +10,8 @@ mixed-language tickets, a mutation check, and an eval for real models behind Lit
 
 ```bash
 npm install
-npm test                 # 76 tests, including 1,000 generated tickets
-bash scripts/mutants.sh  # 7 deliberate privacy bugs; every one must be caught
+npm test                 # 92 tests, including 1,000 generated tickets
+bash scripts/mutants.sh  # 8 deliberate privacy bugs; every one must be caught
 npm run eval             # offline, with a scripted model
 LITELLM_BASE_URL=http://localhost:4000 LITELLM_API_KEY=sk-... \
 MODELS=model-a,model-b RUNS=3 npm run eval   # real models
@@ -35,7 +35,8 @@ out  ... Мы сообщим <CUSTOMER_FIRST_NAME:dat> о решении ...
 
 1. **Mask from the customer record first.** In support you know who wrote the ticket.
    Their name (every script, every Russian case form, with Hebrew one-letter prefixes),
-   ID number, cards, phones and e-mails are found by exact match, not guessed. Patterns
+   ID number and e-mails are found by exact match, not guessed. Cards and phones are left
+   to patterns: a bare four-digit card ending would also match years and amounts. Patterns
    cover the rest: dates and amounts in three languages, any valid Israeli ID (check digit),
    phones, e-mails, card endings after a card cue.
 2. **Role tokens for the customer** (`<CUSTOMER_FIRST_NAME>`), numbered tokens for other
@@ -53,7 +54,8 @@ out  ... Мы сообщим <CUSTOMER_FIRST_NAME:dat> о решении ...
 
 | Failure | Where it is handled | Test |
 | --- | --- | --- |
-| `Коэна`, `Давиду` — case forms of the name | masking generates all case forms | mask, property |
+| `Коэна`, `Давиду` — case forms of the name | masking generates the case forms | mask, property |
+| `Ирины` — a first name declined as if it were a surname (Ильина → Ильиной) | first names and surnames decline separately | mask, restore, property |
 | `לדוד` — Hebrew prefix glued to the name | prefix kept outside the token | mask, property |
 | `david.cohen@example.com` split by the name inside it | e-mails matched before names | mask |
 | Model writes `<CUSTOMER_FIRST_NAME>у` | suffix → case | restore |
@@ -63,11 +65,12 @@ out  ... Мы сообщим <CUSTOMER_FIRST_NAME:dat> о решении ...
 | Tool returns a real value | — | pipeline, property |
 | Model leaves a name in the nominative where Russian needs another case | **not detectable** | eval (read the replies) |
 
-`scripts/mutants.sh` reintroduces seven of these bugs one at a time:
+`scripts/mutants.sh` reintroduces eight of these bugs one at a time:
 
 ```text
 killed    Hebrew prefixes not handled (לדוד leaks)
 killed    Russian case forms not generated (Коэна leaks)
+killed    first names declined as surnames (Ирины leaks)
 killed    names matched before e-mails (address split)
 killed    tool returns the real date
 killed    restore accepts invented tokens
@@ -78,6 +81,12 @@ killed    tool accepts raw values
 One lesson from building it: the first version of the leak checker searched for whole
 words, so it could not see `לדוד` — exactly the bug it was meant to catch. The property
 test passed with the Hebrew-prefix bug in place until the checker learned Hebrew prefixes too.
+
+The same lesson, a second time, found by an independent review: `Ирина` was declined by the
+rule for surnames like `Ильина`, so `Ирины` and `Ирине` reached the model. Nothing failed,
+because the leak checker and the property-test generator both took their name forms from the
+same declension code. The generator now uses case forms written by hand, and the leak check
+adds them to its list. A test built on the code it is testing inherits that code's blind spots.
 
 ## Known gaps (see `test/known-gaps.test.ts`)
 
